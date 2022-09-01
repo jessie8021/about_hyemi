@@ -133,3 +133,4 @@ dmypy.json
 about_hyemi/mysql.conf
 about_hyemi/secrets.json
 migrations/
+__init__.py

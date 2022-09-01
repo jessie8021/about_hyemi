@@ -25,4 +25,7 @@ urlpatterns = [
 
     # accounts
     path('accounts/', include('accounts.urls')),
+
+    # blog
+    path('blog/', include('blog.urls')),
 ]
