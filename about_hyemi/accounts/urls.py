@@ -1,3 +1,12 @@
+
+"""
+logout
+    allauth 에서 로그아웃 구현되어 있음.
+    ex) http://localhost:8000/accounts/logout/
+    body = {"refresh" : "refresh token"}
+    header =  csrftoken : 로그인 시, cookie 에 저장된 값.
+"""
+
 from django.urls import path, include
 
 from .views import *
@@ -29,14 +38,5 @@ urlpatterns = [
     # get refresh token
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
-    # logout
-    '''
-    allauth 에서 로그아웃 구현되어 있음.
-    ex) http://localhost:8000/accounts/logout/
-    body = {"refresh" : "refresh token"}
-    header =  csrftoken : 로그인 시, cookie 에 저장된 값.
-    
-    '''
 
 ]
