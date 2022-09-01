@@ -131,3 +131,4 @@ dmypy.json
 # Pycharm
 .idea/
 about_hyemi/mysql.conf
+about_hyemi/secrets.json
