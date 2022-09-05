@@ -1,5 +1,17 @@
 from django.db import models
 from accounts.models import  CustomUser
+import os
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=299, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+        db_table = 'categories'
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
@@ -12,9 +24,13 @@ class Post(models.Model):
 
     author = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL)
 
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
     class Meta:
         db_table = 'posts'
 
 
     def __str__(self):
         return f'[{self.pk}]{self.title}'
+
+
