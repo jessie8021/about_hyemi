@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 class PostSerializer(serializers.ModelSerializer):
 
@@ -16,4 +16,9 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
     def get_PostCount(self, obj):
         return obj.post.model.objects.filter(category=obj.pk).count()
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
 

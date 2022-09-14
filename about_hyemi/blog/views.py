@@ -1,8 +1,8 @@
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 from django.http import HttpResponse, JsonResponse
 
-from .serializers import PostSerializer, CategorySerializer
+from .serializers import PostSerializer, CategorySerializer, TagSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
@@ -16,6 +16,9 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import mixins
 
+#ViewSet
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
 
 '''
 API View 클래스 사용(CBV)
@@ -99,8 +102,19 @@ def get_postsCategory(request, category):
     serializer = PostSerializer(queryset, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_postsTag(request, tag):
+    queryset = Post.objects.filter(tags=tag)
+    serializer = PostSerializer(queryset, many=True)
+    return Response(serializer.data)
 
-
+'''
+ViewSet
+'''
+class TagViewSet(ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 
