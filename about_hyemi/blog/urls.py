@@ -17,6 +17,8 @@ urlpatterns = [
     path('category/', views.CategoryList.as_view(), name='category-list'),
     path('category/<int:pk>/', views.CategoryDetail.as_view(), name='category-detail'),
     path('', include(router.urls)),
+    path('comment/', views.CommentList.as_view()),
+    path('comment/<int:pk>/', views.CommentDetail.as_view()),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

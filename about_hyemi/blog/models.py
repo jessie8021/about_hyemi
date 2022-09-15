@@ -4,7 +4,7 @@ import os
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(max_length=299, unique=True, allow_unicode=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
 
     def __str__(self):
         return self.name
@@ -43,4 +43,15 @@ class Post(models.Model):
     def __str__(self):
         return f'[{self.pk}]{self.title}'
 
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, null=True, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, related_name='origin_comment', null=True)
+
+    class Meta:
+        db_table = 'Comments'
 

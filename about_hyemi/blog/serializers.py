@@ -1,7 +1,16 @@
 from rest_framework import serializers
-from .models import Post, Category, Tag
+from rest_framework.exceptions import ValidationError
+
+from .models import Post, Category, Tag, Comment
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
 class PostSerializer(serializers.ModelSerializer):
+    post = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
@@ -21,4 +30,5 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
+
 

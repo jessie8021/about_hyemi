@@ -1,8 +1,8 @@
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 
 from django.http import HttpResponse, JsonResponse
 
-from .serializers import PostSerializer, CategorySerializer, TagSerializer
+from .serializers import PostSerializer, CategorySerializer, TagSerializer, CommentSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
@@ -117,4 +117,14 @@ class TagViewSet(ModelViewSet):
     serializer_class = TagSerializer
 
 
+'''
+Mixin
+'''
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
